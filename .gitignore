@@ -14,3 +14,8 @@ wheels/
 *.onnx
 *.json
 .env
+*.bin
+.DS_Store
+*.ppn
+*.zip
+*.txt
