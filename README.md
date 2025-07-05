@@ -8,9 +8,7 @@ Local AI assistant in Hebrew with Phonikud
 2. Set the access key in `.env` file
 3. Open https://platform.openai.com/settings and get OpenAI api key, set in `.env`
 4. Install UV https://docs.astral.sh/uv/getting-started/installation
-5. Install dependencies
-
-6. Download Phonikud models
+5. Download Phonikud models
 
 ```console
 wget https://huggingface.co/thewh1teagle/phonikud-onnx/resolve/main/phonikud-1.0.int8.onnx -O phonikud-1.0.int8.onnx
@@ -24,7 +22,7 @@ STT models
 wget https://huggingface.co/ivrit-ai/whisper-large-v3-turbo-ggml/resolve/main/ggml-model.bin
 ```
 
-1. Install dependencies
+6. Install dependencies
 
 ```console
 uv sync
