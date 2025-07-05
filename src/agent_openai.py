@@ -1,5 +1,5 @@
 import requests
-from config import OPENAI_API_KEY
+from config import OPENAI_API_KEY, SYSTEM_PROMPT
 
 class OpenAIClient:
     def __init__(self):
@@ -16,7 +16,7 @@ class OpenAIClient:
             data = {
                 "model": "gpt-4o",
                 "messages": [
-                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_input}
                 ]
             }
@@ -32,7 +32,7 @@ class OpenAIClient:
                 result = response.json()
                 return result["choices"][0]["message"]["content"]
             else:
-                return f"Error: {response.status_code} - {response.text}"
+                return f"שגיאה: {response.status_code} - {response.text}"
                 
         except Exception as e:
-            return f"Error: {str(e)}"
+            return f"שגיאה: {str(e)}"
