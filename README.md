@@ -30,7 +30,7 @@ uv sync
 
 7. Run
 
-note: first time it downloads the stt model, so it might take a bit to warm up. you can add prints if you want.
+note: first time it might take a bit to warm up. you can add prints if you want.
 
 ```console
 uv run src/main.py
