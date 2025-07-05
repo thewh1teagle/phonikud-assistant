@@ -5,9 +5,11 @@ from noise_filter import NoiseFilter
 from wake_word import WakeWord
 from speech_to_text import SpeechToText
 from agent_openai import OpenAIClient
+from text_to_speech import TextToSpeech
 from collections import deque
 import time
 import threading
+import sounddevice as sd
 
 class SpeechRecorder:
     def __init__(self):
@@ -21,6 +23,7 @@ class SpeechRecorder:
         self.is_transcribing = False
         self.audio_buffer = deque(maxlen=3)  # ~0.1 seconds at 16kHz/512 samples
         self.recorded_audio = []
+        self.tts = TextToSpeech('tts-model.onnx', 'tts-model.config.json', 'phonikud-1.0.int8.onnx')
         
     def transcribe_audio_segment(self, audio_segment):
         """Transcribe audio in a separate thread"""
@@ -28,9 +31,13 @@ class SpeechRecorder:
             text = self.stt.transcribe(audio_segment)
             print(f"Transcribed: {text}")
             # Send to OpenAI and get response
-            # if text.strip():
-            #     ai_response = self.openai.get_response(text)
-            #     print(f"AI Response: {ai_response}")
+            if text.strip():
+                ai_response = self.openai.get_response(text)
+                print(f"AI Response: {ai_response}")
+                print("Creating TTS audio")
+                samples, sample_rate = self.tts.create(ai_response)
+                print("Playing TTS audio")
+                sd.play(samples, sample_rate)
         except Exception as e:
             print(f"Transcription error: {e}")
         finally:
@@ -43,7 +50,6 @@ class SpeechRecorder:
         silence_count = 0
         
         try:
-
             while True:
                 frame = self.recorder.read_frame()
                 enhanced_frame = self.noise_filter.enhance(frame)

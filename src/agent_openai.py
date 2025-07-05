@@ -1,22 +1,38 @@
-import os
-from openai import OpenAI
+import requests
 from config import OPENAI_API_KEY
 
 class OpenAIClient:
     def __init__(self):
-        self.client = OpenAI(
-            api_key=OPENAI_API_KEY,
-        )
+        self.api_key = OPENAI_API_KEY
+        self.base_url = "https://api.openai.com/v1"
     
     def get_response(self, user_input):
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {self.api_key}"
+            }
+            
+            data = {
+                "model": "gpt-4o",
+                "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": user_input}
                 ]
+            }
+            
+            response = requests.post(
+                f"{self.base_url}/chat/completions",
+                headers=headers,
+                json=data,
+                timeout=30
             )
-            return response.choices[0].message.content
+            
+            if response.status_code == 200:
+                result = response.json()
+                return result["choices"][0]["message"]["content"]
+            else:
+                return f"Error: {response.status_code} - {response.text}"
+                
         except Exception as e:
             return f"Error: {str(e)}"
