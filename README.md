@@ -1,6 +1,6 @@
 # Phonikud-assistant
 
-Local AI assistant in Hebrew with Phonikud
+Local AI assistant in Hebrew with Phonikud ✨
 
 ## Setup
 
@@ -35,3 +35,8 @@ note: first time it downloads the stt model, so it might take a bit to warm up. 
 ```console
 uv run src/main.py
 ```
+
+## Usage
+
+1. Say `Picovoice!` to wake him up
+2. Ask anything and watch the magic! ✨
