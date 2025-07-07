@@ -10,6 +10,7 @@ from collections import deque
 import time
 import threading
 import sounddevice as sd
+import config
 
 class SpeechRecorder:
     def __init__(self):
@@ -17,7 +18,7 @@ class SpeechRecorder:
         self.vad = VAD()
         self.noise_filter = NoiseFilter()
         self.wake_word = WakeWord()
-        self.stt = SpeechToText()
+        self.stt = SpeechToText(config.STT_MODEL_PATH)
         self.openai = OpenAIClient()
         self.is_recording = False
         self.is_transcribing = False
