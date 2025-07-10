@@ -38,7 +38,7 @@ uv run src/main.py
 
 ## License
 
-Non commercial (See [LICENSE](LICENSE)
+Non commercial (See [LICENSE](LICENSE))
 
 ## Usage
 
