@@ -36,6 +36,10 @@ note: first time it might take a bit to warm up. you can add prints if you want.
 uv run src/main.py
 ```
 
+## License
+
+Non commercial (See [LICENSE](LICENSE)
+
 ## Usage
 
 1. Say `Picovoice!` to wake him up
